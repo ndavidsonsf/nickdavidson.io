@@ -477,7 +477,7 @@ h2 {
   padding-bottom: 8px;
 }
 .results-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
+  display: grid; grid-template-columns: 1fr 1fr;
   gap: 2px;
 }
 .result-card {
