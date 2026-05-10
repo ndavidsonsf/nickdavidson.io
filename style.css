@@ -214,7 +214,7 @@ h1 em {
   background: var(--gray);
 }
 .marquee-track {
-  display: flex; gap: 0;
+  display: flex;
   animation: marquee 30s linear infinite;
   white-space: nowrap;
 }
@@ -233,18 +233,6 @@ h1 em {
 
 /* SECTION STYLES */
 section { padding: 120px 48px; position: relative; }
-.section-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 16px;
-  display: flex; align-items: center; gap: 12px;
-}
-.section-label::after {
-  content: '';
-  flex: 1; max-width: 80px; height: 1px;
-  background: var(--accent);
-}
 h2 {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(48px, 6vw, 90px);
@@ -540,7 +528,6 @@ h2 {
   font-size: 10px; color: var(--accent);
 }
 
-
 /* CONTACT */
 #contact { background: var(--black); }
 .contact-grid {
@@ -601,7 +588,6 @@ footer {
 
 /* SCROLL ANIMATIONS */
 .reveal { opacity: 1; transform: none; }
-.reveal.visible { opacity: 1; transform: none; }
 
 body.js-loaded .reveal {
   opacity: 0;
