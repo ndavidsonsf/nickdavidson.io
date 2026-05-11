@@ -632,3 +632,55 @@ body.js-loaded .reveal-delay-3 { transition-delay: 0.36s; }
   .cert-item { border-right: none; border-bottom: 1px solid var(--border); }
   footer { flex-direction: column; gap: 16px; text-align: center; }
 }
+
+/* HERO ORBS */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+.hero-orb-1 {
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, rgba(0,153,204,0.38) 0%, transparent 70%);
+  filter: blur(64px);
+  top: -100px; right: 60px;
+  animation: orbFloat1 13s ease-in-out infinite;
+}
+.hero-orb-2 {
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, rgba(255,215,0,0.28) 0%, transparent 70%);
+  filter: blur(52px);
+  bottom: 40px; right: 340px;
+  animation: orbFloat2 17s ease-in-out infinite;
+}
+.hero-orb-3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(0,153,204,0.22) 0%, transparent 70%);
+  filter: blur(44px);
+  top: 45%; left: -60px;
+  animation: orbFloat3 11s ease-in-out infinite;
+}
+@keyframes orbFloat1 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-28px, 36px); }
+}
+@keyframes orbFloat2 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(36px, -28px); }
+}
+@keyframes orbFloat3 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(22px, -38px); }
+}
+
+/* MOUSE SPOTLIGHT */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(600px circle at var(--mouse-x, -9999px) var(--mouse-y, -9999px), rgba(0,153,204,0.07), transparent 40%);
+}

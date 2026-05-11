@@ -27,6 +27,12 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
   });
 });
 
+// Mouse spotlight
+document.addEventListener('mousemove', function(e) {
+  document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px');
+  document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px');
+});
+
 // Mobile nav toggle
 var toggle = document.querySelector('.nav-toggle');
 var nav = document.querySelector('nav');
