@@ -262,40 +262,85 @@ h2 {
   padding-left: 28px;
 }
 
+
 .services-grid {
-  display: flex; flex-direction: column;
-  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
 }
 .service-card {
-  display: grid; grid-template-columns: 80px 1fr;
-  gap: 48px; padding: 48px 0;
-  border-bottom: 1px solid var(--border);
-  position: relative;
-  transition: padding-left 0.3s;
+  background: transparent;
+  padding: 48px 40px;
+  border: 1px solid var(--border);
+  position: relative; overflow: hidden;
+  transition: border-color 0.4s, box-shadow 0.4s;
+  display: flex; flex-direction: column; justify-content: flex-start;
+  min-height: 280px;
 }
-.service-card:hover { padding-left: 16px; }
+/* Diagonal cerulean flood on hover */
+.service-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(0,153,204,0.45) 0%, rgba(0,153,204,0.15) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+/* Bottom accent sweep */
+.service-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), rgba(0,153,204,0.3));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.35s ease;
+}
+.service-card:hover {
+  border-color: rgba(0,153,204,0.7);
+  box-shadow: 0 0 60px rgba(0,153,204,0.2), inset 0 0 60px rgba(0,153,204,0.06);
+}
+.service-card:hover::before { opacity: 1; }
+.service-card:hover::after { transform: scaleX(1); }
+
+/* Bento sizing — card 1 anchors the grid, large */
+.service-card:nth-child(1) { grid-column: 1 / 3; grid-row: 1 / 3; min-height: 420px; padding: 64px 56px; }
+.service-card:nth-child(2) { grid-column: 3; grid-row: 1; }
+.service-card:nth-child(3) { grid-column: 3; grid-row: 2; }
+
+/* Numbers — large, visible, top-right anchor */
 .service-num {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 72px; line-height: 1;
-  color: transparent; -webkit-text-stroke: 1px rgba(245,242,237,0.15);
-  grid-column: 1; grid-row: 1 / span 2;
-  align-self: start;
+  font-size: 120px; line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(245,242,237,0.22);
+  position: absolute; top: 12px; right: 20px;
+  transition: -webkit-text-stroke-color 0.35s;
+  pointer-events: none; user-select: none;
 }
-.service-card:hover .service-num { -webkit-text-stroke-color: var(--accent); }
+.service-card:hover .service-num { -webkit-text-stroke-color: rgba(0,153,204,0.55); }
+.service-card:nth-child(1) .service-num { font-size: 200px; top: 16px; right: 28px; }
+
 .service-icon { display: none; }
+
 .service-title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 32px; letter-spacing: 0.5px;
-  color: var(--white); margin-bottom: 16px;
-  grid-column: 2; grid-row: 1;
-  align-self: end; padding-top: 12px;
+  font-size: 28px; letter-spacing: 0.5px;
+  color: var(--white); margin-bottom: 14px;
+  position: relative; z-index: 1;
+  transition: color 0.3s;
+  margin-top: auto;
 }
+.service-card:hover .service-title { color: var(--white); }
+.service-card:nth-child(1) .service-title { font-size: 44px; margin-bottom: 20px; }
+
 .service-desc {
   font-family: 'DM Mono', monospace;
   font-size: 12px; line-height: 1.85;
-  color: rgba(245,242,237,0.55);
-  grid-column: 2; grid-row: 2;
+  color: rgba(245,242,237,0.5);
+  position: relative; z-index: 1;
+  transition: color 0.3s;
 }
+.service-card:hover .service-desc { color: rgba(245,242,237,0.75); }
 
 /* RESULTS */
 #results { background: var(--black); }
@@ -623,8 +668,13 @@ body.js-loaded .reveal-delay-3 { transition-delay: 0.36s; }
   .experience-header { grid-template-columns: 1fr; }
   .exp-item { grid-template-columns: 1fr; gap: 16px; padding-left: 32px; }
   .consulting-hero { grid-template-columns: 1fr; gap: 48px; }
-  .services-grid { border-top: 1px solid var(--border); }
-  .service-card { grid-template-columns: 48px 1fr; gap: 24px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .service-card:nth-child(1),
+  .service-card:nth-child(2),
+  .service-card:nth-child(3) { grid-column: auto; grid-row: auto; min-height: 240px; }
+  .service-card:nth-child(1) { padding: 48px 32px; }
+  .service-card:nth-child(1) .service-title { font-size: 32px; }
+  .service-card:nth-child(1) .service-num { font-size: 100px; }
   .results-header { grid-template-columns: 1fr; }
   .results-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
