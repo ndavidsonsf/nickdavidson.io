@@ -1,43 +1,48 @@
-// Scroll animations via IntersectionObserver
+// nickdavidson.io — progressive enhancement only.
+// Everything below is optional; the page reads fine without it.
 document.body.classList.add('js-loaded');
 
-const observer = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
+// Reveal on scroll
+var observer = new IntersectionObserver(function (entries) {
+  entries.forEach(function (entry) {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
       observer.unobserve(entry.target);
     }
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
 
-document.querySelectorAll('.reveal').forEach(function(el) {
-  observer.observe(el);
-});
-
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(function(a) {
-  a.addEventListener('click', function(e) {
-    var target = document.querySelector(a.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      // Close mobile nav if open
-      document.querySelector('nav').classList.remove('open');
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
+// Study ledger — hover (or focus/tap) a stop, the panel rewrites
+var stops = Array.prototype.slice.call(document.querySelectorAll('.stop'));
+var panel = document.querySelector('.panel');
+if (panel && stops.length) {
+  var show = function (stop) {
+    stops.forEach(function (s) { s.setAttribute('aria-current', String(s === stop)); });
+    panel.querySelector('.when').textContent = stop.querySelector('.when').textContent;
+    panel.querySelector('h4').textContent = stop.dataset.place;
+    panel.querySelector('.label').textContent = stop.dataset.label;
+    panel.querySelector('p').textContent = stop.querySelector('.stop-note').textContent;
+  };
+  stops.forEach(function (stop) {
+    stop.addEventListener('mouseenter', function () { show(stop); });
+    stop.addEventListener('focus', function () { show(stop); });
+    stop.addEventListener('click', function () { show(stop); });
   });
-});
+}
 
-// Mouse spotlight
-document.addEventListener('mousemove', function(e) {
-  document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px');
-  document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px');
-});
-
-// Mobile nav toggle
+// Mobile index toggle
 var toggle = document.querySelector('.nav-toggle');
-var nav = document.querySelector('nav');
-if (toggle) {
-  toggle.addEventListener('click', function() {
-    nav.classList.toggle('open');
+var folio = document.querySelector('.folio');
+if (toggle && folio) {
+  toggle.addEventListener('click', function () {
+    var open = folio.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+  folio.querySelectorAll('.folio-links a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      folio.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
   });
 }

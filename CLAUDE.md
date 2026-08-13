@@ -1,37 +1,61 @@
-# CLAUDE.md
+# CLAUDE.md - nickdavidson.io
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Personal site for Nick Davidson: customer success architecture, consulting practice,
+the IE Global Executive MBA, and a forthcoming writing series.
 
-## Project Overview
+## Non-negotiables
 
-Personal portfolio and consulting site for Nick Davidson (nickdavidson.io). Static site hosted on GitHub Pages — no build system, no dependencies, no package manager.
+- **Static only.** Three files at the repo root - `index.html`, `style.css`, `main.js` - plus images. No build step, no bundler, no framework, no npm. GitHub Pages serves the root of `main`.
+- **No dependencies.** Fonts come from Google Fonts; everything else is hand-written. Do not add a library to solve something CSS can do.
+- **JS is progressive enhancement.** `main.js` adds scroll reveals, the Study ledger panel, and the mobile nav. The page must read completely with JS off - `body:not(.js-loaded)` rules cover the fallbacks. Never move content into JS.
 
-## File Structure
+## Design system - broadsheet
 
-```
-index.html        — markup only (~220 lines)
-style.css         — all styles (~400 lines)
-main.js           — scroll animations, smooth scroll, mobile nav toggle
-nickheadshot.jpg  — headshot, co-located with index.html (do not move)
-```
+The site is designed as a printed broadsheet, not a web page. Rules and marginalia
+instead of cards; hover instead of ornament.
 
-## Architecture
+**Type - three faces, no more**
+- Instrument Serif - masthead, headlines, section names, figures. Always weight 400.
+- Archivo - body copy.
+- JetBrains Mono - labels, dates, kickers, tags. Uppercase, letterspaced.
 
-- **CSS custom properties** in `:root` drive the color palette: `--black`, `--white`, `--accent` cerulean `#0099CC`, `--accent2` gold `#FFD700`. Note: several rgba values in `style.css` hardcode the cerulean as `rgba(0,153,204,...)` — update these alongside `--accent` if the color changes.
-- **Google Fonts** loaded via `<link>`: Bebas Neue (display/logo), DM Serif Display (italic accents), DM Mono (labels, monospace), Syne (body)
-- **Section order** is consulting-first: `#hero` → `#services` → `#results` → `#experience` → `#about` → `#contact`
-- **Reveal animations** use `.reveal` / `.reveal-delay-N` classes triggered by IntersectionObserver in `main.js`. Requires `body.js-loaded` to be present (set immediately on script load) — this is a progressive enhancement guard so content is visible if JS fails.
-- **Mobile nav** toggles `.open` on the `<nav>` element via `.nav-toggle` button; hidden above 900px breakpoint.
-- All content is hard-coded HTML — no CMS or data layer.
+**Colour - two plus one**
+- Ink `#16160F` on paper `#FAF8F3`, secondary paper `#F0EDE3`.
+- One accent: green `#2E7D4F`. Used for kickers, the active state, and emphasis inside headlines. Nothing else gets a colour.
+- All of it lives in `:root` in `style.css`. Change it there; never hardcode a hex in markup.
 
-## Serving Locally
+**Layout**
+- Every section is a `.band`: a 200px marginalia gutter (`.marg`) plus content, separated by hairline rules. New sections reuse `.band` - do not invent new spacing systems.
+- Max width 1280px with vertical rules at the edges, like a page.
+- No rounded corners. No box shadows. No gradients. Borders are 1px hairlines; emphasis is a 2–3px rule.
 
-```bash
-python3 -m http.server 8080
-```
+**Interaction**
+- Hover is the only ornament: figures invert to ink, engagement rows indent and shade, dispatch cells fill, tags invert, Study rows drive the side panel.
+- One reveal transition, disabled under `prefers-reduced-motion`.
+- Interactive elements are real `<button>`s with `aria-current`, not divs.
 
-## GitHub Pages Constraints
+## Content structure
 
-- Static files only — no server-side code, no Jekyll (not configured)
-- All assets must be relative paths from the repo root
-- The `.claude/` directory is ignored by GitHub Pages
+Order is deliberate - proof before biography:
+
+masthead → statement of practice → figures → engagements → quotes → **dispatches** → the record → study → off the clock → colophon
+
+- **Figures** are four and only four. Adding a fifth weakens all of them.
+- **Engagements** - five shapes of consulting work, roman numerals, with an engagement-length tag.
+- **Dispatches** - four standing columns (customer success, the MBA, family, craft). Nothing is written yet; the section says so honestly and links to a mailto. When a platform is chosen, replace the `.signup` block with a real form. Do not fake a subscribe box.
+- **Study** - ASU BA (conferred Aug 2026) then the IE GXMBA residencies, sourced from the official program structure: Madrid 13–25 Sep 26 · Singapore 17–23 Jan 27 · Oxford 12–17 Apr 27 · Los Angeles 25–31 Jul 27 · Madrid 13–17 Dec 27 (finals, graduation). Course lists live in `data-courses`. Term→course mapping follows the program PDF; correct it, don't guess further.
+- **Off the clock** - prose plus tags. DE&I first and filled. AFOL stays.
+
+## Voice
+
+Plain, specific, slightly dry. Short declaratives. Concrete numbers over adjectives.
+No "passionate," no "leverage," no "thought leader," no exclamation marks, no emoji.
+British-ish spelling is used consistently (`modelling`, `organisations`).
+Claims are checkable: if a figure can't be sourced, cut it.
+
+## Things not to do
+
+- Don't add sections without asking - the page is short on purpose.
+- Don't introduce a second accent colour, a fourth typeface, or card-based layout.
+- Don't replace the mailto with a fake newsletter integration.
+- Don't restore the previous cerulean / Bebas Neue design system; it has been retired.
