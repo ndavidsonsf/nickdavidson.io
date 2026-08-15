@@ -42,7 +42,7 @@ masthead → statement of practice → figures → engagements → quotes → **
 
 - **Figures** are four and only four. Adding a fifth weakens all of them.
 - **Engagements** - five shapes of consulting work, roman numerals, with an engagement-length tag.
-- **Dispatches** - four standing columns (customer success, the MBA, family, craft). Nothing is written yet; the section says so honestly and links to a mailto. When a platform is chosen, replace the `.signup` block with a real form. Do not fake a subscribe box.
+- **Dispatches** - tagged posts, not fixed series slots. An archive page lives at `/dispatches/`; each post is a hand-authored page at `/dispatches/<slug>.html` using the `.article-body` pattern (serif h1, mono kicker, Archivo body, serif h2 subheads). The homepage shows only the single most recent post as a `.disp-featured` card, plus an honest `.disp-progress` line naming what's still in progress. The archive lists every post newest-first with the same kicker/h4/p pattern - adding one is a copy-paste of one `.disp` block, not a redesign. The mailto signup block stays; when a platform is chosen, replace it with a real form. Do not fake a subscribe box.
 - **Study** - ASU BA (conferred Aug 2026) then the IE GXMBA residencies, sourced from the official program structure: Madrid 13–25 Sep 26 · Singapore 17–23 Jan 27 · Oxford 12–17 Apr 27 · Los Angeles 25–31 Jul 27 · Madrid 13–17 Dec 27 (finals, graduation). Course lists live in `data-courses`. Term→course mapping follows the program PDF; correct it, don't guess further.
 - **Off the clock** - prose plus tags. DE&I first and filled. AFOL stays.
 
