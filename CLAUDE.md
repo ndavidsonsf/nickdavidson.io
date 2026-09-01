@@ -7,7 +7,7 @@ the IE Global Executive MBA, and a forthcoming writing series.
 
 - **Static only.** Three files at the repo root - `index.html`, `style.css`, `main.js` - plus images. No build step, no bundler, no framework, no npm. GitHub Pages serves the root of `main`.
 - **No dependencies.** Fonts come from Google Fonts; everything else is hand-written. Do not add a library to solve something CSS can do.
-- **JS is progressive enhancement.** `main.js` adds scroll reveals, the Study ledger panel, and the mobile nav. The page must read completely with JS off - `body:not(.js-loaded)` rules cover the fallbacks. Never move content into JS.
+- **JS is progressive enhancement.** `main.js` adds scroll reveals and the mobile nav. The page must read completely with JS off - `body:not(.js-loaded)` rules cover the fallbacks. Never move content into JS.
 
 ## Design system - broadsheet
 
@@ -30,8 +30,8 @@ instead of cards; hover instead of ornament.
 - No rounded corners. No box shadows. No gradients. Borders are 1px hairlines; emphasis is a 2–3px rule.
 
 **Interaction**
-- Hover is the only ornament: figures invert to ink, engagement rows indent and shade, dispatch cells fill, tags invert, Study rows drive the side panel.
-- One reveal transition, disabled under `prefers-reduced-motion`.
+- Hover is the only ornament: figures invert to ink, engagement rows indent and shade, dispatch cells fill, tags invert.
+- Two motion cues, both tied to scroll-reveal and both killed under `prefers-reduced-motion`: the `.reveal` fade-up, and the Study `.route` line drawing itself in with its city nodes fading up in sequence. Any new animation must clear the same bar - purposeful, scroll-triggered, reduced-motion-safe. No looping or decorative motion.
 - Interactive elements are real `<button>`s with `aria-current`, not divs.
 
 ## Content structure
@@ -41,9 +41,9 @@ Order is deliberate - proof before biography:
 masthead → statement of practice → figures → engagements → quotes → **dispatches** → the record → study → off the clock → colophon
 
 - **Figures** are four and only four. Adding a fifth weakens all of them.
-- **Engagements** - five shapes of consulting work, roman numerals, with an engagement-length tag.
+- **Engagements** - five shapes of consulting work, roman numerals. No duration or price tags - scope and timing are a conversation, and the subhead says so.
 - **Dispatches** - tagged posts, not fixed series slots. An archive page lives at `/dispatches/`; each post is a hand-authored page at `/dispatches/<slug>.html` using the `.article-body` pattern (serif h1, mono kicker, Archivo body, serif h2 subheads). The homepage shows only the single most recent post as a `.disp-featured` card, plus an honest `.disp-progress` line naming what's still in progress. The archive lists every post newest-first with the same kicker/h4/p pattern - adding one is a copy-paste of one `.disp` block, not a redesign. The mailto signup block stays; when a platform is chosen, replace it with a real form. Do not fake a subscribe box.
-- **Study** - ASU BA (conferred Aug 2026) then the IE GXMBA residencies, sourced from the official program structure: Madrid 13–25 Sep 26 · Singapore 17–23 Jan 27 · Oxford 12–17 Apr 27 · Los Angeles 25–31 Jul 27 · Madrid 13–17 Dec 27 (finals, graduation). Course lists live in `data-courses`. Term→course mapping follows the program PDF; correct it, don't guess further.
+- **Study** - two stacked `.degree` entries, same `date / serif h4 / body` rhythm as `.job` in The Record: the ASU BA (conferred Aug 2026) and the IE Global Executive MBA (class of 2027). The MBA entry carries the `.route` line - an inline SVG of the five city stops (Madrid, Singapore, Oxford, Los Angeles, Madrid for graduation, the last node green) that draws itself in on reveal. No interactive ledger. The full six-stop residency itinerary - from the official program structure: Madrid 13–25 Sep 26 · Singapore 17–23 Jan 27 · Oxford 12–17 Apr 27 · Los Angeles 25–31 Jul 27 · Madrid 13–17 Dec 27 (finals, graduation) - is parked as a comment right after the section. It gets built back in one `.degree`-weight entry at a time as each residency is completed, ideally in step with a Dispatch about it. Correct the dates from the program PDF; don't guess further.
 - **Off the clock** - prose plus tags. DE&I first and filled. AFOL stays.
 
 ## Voice
