@@ -164,7 +164,8 @@ blockquote{margin:0;font:400 clamp(19px,1.6vw,23px)/1.42 var(--serif);color:var(
 .route svg{display:block;width:100%;height:auto;overflow:visible}
 .route-track{stroke:var(--ink);stroke-width:1}
 .route-stops circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
-.route-stops circle.grad{fill:var(--green);stroke:var(--green)}
+.route-stops circle.now{fill:var(--green);stroke:var(--green)}
+.route-stops circle.grad{fill:var(--ink);stroke:var(--ink)}
 .route-stops text{font:400 10.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;fill:var(--ink);text-anchor:middle}
 .route-stops text.d{font-size:9px;fill:var(--faint);letter-spacing:.03em}
 body.js-loaded .route-track{stroke-dasharray:520;stroke-dashoffset:520;transition:stroke-dashoffset 1.5s ease .15s}
